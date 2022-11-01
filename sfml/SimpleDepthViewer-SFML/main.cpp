@@ -42,8 +42,6 @@ public:
     float xvalue = 0;
     float yvalue = 0;
 
-
-    //sam
     int carlength = 240;
     int widthmin = 230;
     int widthmax = 270;
@@ -53,8 +51,38 @@ public:
     int n = 2; //number of frames averaged
 
     int flag = 0;
+    
+    samples::common::LitDepthVisualizer visualizer_;
 
-    //sam
+    using DurationType = std::chrono::milliseconds;
+    using ClockType = std::chrono::high_resolution_clock;
+
+    ClockType::time_point prev_;
+    float elapsedMillis_{ .0f };
+
+    sf::Texture texture_;
+    sf::Sprite sprite_;
+    sf::Font font_;
+
+    int displayWidth_{ 0 };
+    int displayHeight_{ 0 };
+
+    using BufferPtr = std::unique_ptr<uint8_t[]>;
+    BufferPtr displayBuffer_{ nullptr };
+
+    int depthWidth_{ 0 };
+    int depthHeight_{ 0 };
+
+    using DepthPtr = std::unique_ptr<int16_t[]>;
+    DepthPtr depthData_{ nullptr };
+
+    int mouseX_{ 0 };
+    int mouseY_{ 0 };
+    float mouseWorldX_{ 0 };
+    float mouseWorldY_{ 0 };
+    float mouseWorldZ_{ 0 };
+    bool isPaused_{ false };
+    bool isMouseOverlayEnabled_{ true };
 
     DepthFrameListener()
     {
@@ -114,7 +142,8 @@ public:
                           << std::setprecision(1)
                           << elapsedMillis_ << " ms)"
                           << std::setprecision(precision)
-                          << std::endl; */
+                          << std::endl; 
+        */
     }
 
     void on_frame_ready(astra::StreamReader& reader,
@@ -134,7 +163,6 @@ public:
 
         visualizer_.update(pointFrame);
 
-        //sam
         const astra::RgbPixel* vizBuffer = visualizer_.get_output();
 
         if (flag < n - 1) //to take the average of 2 frames (hopefully to remove jittering)
@@ -164,65 +192,38 @@ public:
         {
             for (int i = 0; i < width * height; i++)
             {
-
                 const int rgbaOffset = i * 4;
 
-                //changed vaiable names
-                if (depthData_[i] > depthmin && depthData_[i] < depthmax && ((i / width) > widthmin) && ((i / width) < widthmax))
+                displayBuffer_[rgbaOffset] += (vizBuffer[i].r) / n;
+                displayBuffer_[rgbaOffset + 1] += (vizBuffer[i].b) / n;
+                displayBuffer_[rgbaOffset + 2] += (vizBuffer[i].g) / n;
+                displayBuffer_[rgbaOffset + 3] = 255; //keep dont change
+
+                int row = i / width;
+                int col = i % width;
+
+                if (row > maxY) { maxY = row; }
+                else if (row < minY) { minY = row; }
+                if (col > maxX) { maxX = col; }
+                else if (col < minX) { minX = col; }
+
+                if (((maxX - minX)) > carlength)
                 {
-
-                    displayBuffer_[rgbaOffset] += (vizBuffer[i].r) / n;
-                    displayBuffer_[rgbaOffset + 1] += (vizBuffer[i].b) / n;
-                    displayBuffer_[rgbaOffset + 2] += (vizBuffer[i].g) / n;
-                    displayBuffer_[rgbaOffset + 3] = 255; //keep dont change
-
-                    int row = i / width;
-                    int col = i % width;
-
-                    if (row > maxY) { maxY = row; }
-                    else if (row < minY) { minY = row; }
-                    if (col > maxX) { maxX = col; }
-                    else if (col < minX) { minX = col; }
-
-                    //sam
-                    if (((maxX - minX)) > carlength)
-                    {
-                        widthmin--;
-                        widthmax--;
-                        depthmin--;
-                        // depthmax --;
-                    }
-                    else
-                    {
-                        widthmin = 230;
-                        widthmax = 270;
-                        depthmin = 1205;
-                        depthmax = 1245;
-                    }
-                    //sam
-
+                    widthmin--;
+                    widthmax--;
+                    depthmin--;
                 }
                 else
                 {
-
-                    displayBuffer_[rgbaOffset] += (vizBuffer[i].r) / n;
-                    displayBuffer_[rgbaOffset + 1] += (vizBuffer[i].b) / n;
-                    displayBuffer_[rgbaOffset + 2] += (vizBuffer[i].g) / n;
-                    displayBuffer_[rgbaOffset + 3] = 255; //keep dont change
-                    /*
-                    displayBuffer_[rgbaOffset] = 0;
-                    displayBuffer_[rgbaOffset + 1] = 0;
-                    displayBuffer_[rgbaOffset + 2] = 0;
-                    displayBuffer_[rgbaOffset + 3] = 255; //keep dont change */
+                    widthmin = 230;
+                    widthmax = 270;
+                    depthmin = 1205;
+                    depthmax = 1245;
                 }
-
             }
-
             flag = 0;
         }
-
         texture_.update(displayBuffer_.get());
-
     }
 
     void copy_depth_data(astra::Frame& frame)
@@ -270,9 +271,7 @@ public:
 
         const size_t index = (depthWidth_ * mouseY_ + mouseX_);
         const short z = depthData_[index];
-
-        // std::cout << "z = " << z << ", x = "<< mouseX_ << ", y = " << mouseY_ << std::endl;
-
+        
         coordinateMapper.convert_depth_to_world(float(mouseX_),
             float(mouseY_),
             float(z),
@@ -354,7 +353,7 @@ public:
             //minX, minY, maxX, maxY
             //front one
 
-            if ((maxX - minX) * 2 > 200)//mm
+            if ((maxX - minX) * 2 > 200)// in mm
             {
                 //right wheel
                 circle.setPosition((rectangle.getPosition().x) + 2 * (maxX - minX) - 20, (rectangle.getPosition().y) + 2 * (maxY - minY) - 10);
@@ -398,8 +397,6 @@ public:
                 std::cout << std::setprecision(4) << "(Distance from start of conveyer " << distance_to_start << std::endl;
             }
 
-
-
             maxX = 0;
             maxY = 0;
             minX = 100000;
@@ -426,42 +423,6 @@ public:
     {
         return isMouseOverlayEnabled_;
     }
-
-public:
-    samples::common::LitDepthVisualizer visualizer_;
-
-    using DurationType = std::chrono::milliseconds;
-    using ClockType = std::chrono::high_resolution_clock;
-
-    ClockType::time_point prev_;
-    float elapsedMillis_{ .0f };
-
-    sf::Texture texture_;
-    sf::Sprite sprite_;
-    sf::Font font_;
-
-    int displayWidth_{ 0 };
-    int displayHeight_{ 0 };
-
-    using BufferPtr = std::unique_ptr<uint8_t[]>;
-    BufferPtr displayBuffer_{ nullptr };
-
-    int depthWidth_{ 0 };
-    int depthHeight_{ 0 };
-
-    using DepthPtr = std::unique_ptr<int16_t[]>;
-    DepthPtr depthData_{ nullptr };
-
-    int mouseX_{ 0 };
-    int mouseY_{ 0 };
-    float mouseWorldX_{ 0 };
-    float mouseWorldY_{ 0 };
-    float mouseWorldZ_{ 0 };
-    bool isPaused_{ false };
-    bool isMouseOverlayEnabled_{ true };
-
-    //divide/width - row (x), remainder is collum (y) 640
-
 };
 
 astra::DepthStream configure_depth(astra::StreamReader& reader)
