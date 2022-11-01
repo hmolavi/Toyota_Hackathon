@@ -1,0 +1,33 @@
+﻿  main.cpp
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(91,96): warning C4244: 'initializing': conversion from '_Rep' to 'float', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(91,35): warning C4244: 'initializing': conversion from '_Rep' to 'const float', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(245,31): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(246,32): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(279,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(279,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(283,29): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(283,26): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(308,61): warning C4244: 'argument': conversion from 'const float' to 'const int', possible loss of data
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(308,51): warning C4244: 'argument': conversion from 'const float' to 'const int', possible loss of data
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(322,77): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(322,58): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(326,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\sfml\SimpleDepthViewer-SFML\main.cpp(326,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  LINK : C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\vs2015\bin\Debug\SimpleDepthViewer-SFML.exe not found or not built by the last incremental link; performing full link
+  SimpleDepthViewer-SFML.vcxproj -> C:\Users\hosse\Downloads\AstraSDKvs2015-win64-silas (2)\AstraSDKvs2015-win64-silas\samples\vs2015\bin\Debug\SimpleDepthViewer-SFML.exe
