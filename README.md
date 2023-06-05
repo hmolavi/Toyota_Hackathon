@@ -12,3 +12,6 @@ These are the steps our group took in order to complete the challenge, these wer
 5. Narrow down the location of the wheels from the cars cordinates
 6. Locate the objective post
 7. Draw the circles around the wheels and take a picture of the image when front wheel crosses the post
+
+# Challenges Faced
+- Depending on the time of the day, the camera had a diffiult time picking up depth values
