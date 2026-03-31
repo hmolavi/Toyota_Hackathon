@@ -27,34 +27,21 @@ These are the steps our group took in order to complete the challenge, these wer
 
 # Gallery
 
-<div align="center" id="slide-1">
-	<p>
-		<a href="#slide-4">Previous</a> | <a href="#slide-2">Next</a>
-	</p>
-	<img src="assets/pic2.jpg" alt="gallery_image_1" width="800" />
-	<p>1 / 4</p>
-</div>
-
-<div align="center" id="slide-2">
-	<p>
-		<a href="#slide-1">Previous</a> | <a href="#slide-3">Next</a>
-	</p>
-	<img src="assets/pic3.jpg" alt="gallery_image_2" width="800" />
-	<p>2 / 4</p>
-</div>
-
-<div align="center" id="slide-3">
-	<p>
-		<a href="#slide-2">Previous</a> | <a href="#slide-4">Next</a>
-	</p>
-	<img src="assets/pic4.jpg" alt="gallery_image_3" width="800" />
-	<p>3 / 4</p>
-</div>
-
-<div align="center" id="slide-4">
-	<p>
-		<a href="#slide-3">Previous</a> | <a href="#slide-1">Next</a>
-	</p>
-	<img src="assets/pic5.jpg" alt="gallery_image_4" width="800" />
-	<p>4 / 4</p>
-</div>
+<table align="center">
+	<tr>
+		<td align="center">
+			<img src="assets/pic2.jpg" alt="gallery_image_1" width="420" />
+		</td>
+		<td align="center">
+			<img src="assets/pic3.jpg" alt="gallery_image_2" width="420" />
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+			<img src="assets/pic4.jpg" alt="gallery_image_3" width="420" />
+		</td>
+		<td align="center">
+			<img src="assets/pic5.jpg" alt="gallery_image_4" width="420" />
+		</td>
+	</tr>
+</table>
