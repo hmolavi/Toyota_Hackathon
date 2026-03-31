@@ -4,6 +4,8 @@
 	<img src="assets/pic1.jpg" alt="cover_image" />
 </p>
 
+https://github.com/user-attachments/assets/45e1f9d2-82a7-4b8a-a917-5313c5db2a29
+
 Won first place for fastest completion time and best presentation
 
 ## Main Objective
